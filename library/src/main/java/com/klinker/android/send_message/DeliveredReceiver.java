@@ -16,6 +16,7 @@
 
 package com.klinker.android.send_message;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -56,7 +57,7 @@ public abstract class DeliveredReceiver extends StatusUpdatedReceiver {
 
                         // mark message as delivered in database
                         if (query.moveToFirst()) {
-                            String id = query.getString(query.getColumnIndex("_id"));
+                            @SuppressLint("Range") String id = query.getString(query.getColumnIndex("_id"));
                             ContentValues values = new ContentValues();
                             values.put("status", "0");
                             values.put("date_sent", Calendar.getInstance().getTimeInMillis());
@@ -88,7 +89,7 @@ public abstract class DeliveredReceiver extends StatusUpdatedReceiver {
 
                         // mark failed in database
                         if (query2.moveToFirst()) {
-                            String id = query2.getString(query2.getColumnIndex("_id"));
+                            @SuppressLint("Range") String id = query2.getString(query2.getColumnIndex("_id"));
                             ContentValues values = new ContentValues();
                             values.put("status", "64");
                             values.put("read", true);

@@ -1,5 +1,6 @@
 package com.klinker.android.send_message;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -183,6 +184,7 @@ public class ApnUtils {
                 .commit();
     }
 
+    @SuppressLint("MissingPermission")
     private static ArrayList<APN> loadApns(Context context) {
         XmlResourceParser parser = context.getResources().getXml(R.xml.apns);
         ArrayList<APN> apns = new ArrayList<APN>();

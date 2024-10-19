@@ -16,6 +16,7 @@
 
 package com.android.mms.transaction;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -73,7 +74,7 @@ public class MmsSystemEventReceiver extends BroadcastReceiver {
             }
 
             if (Utils.isMmsOverWifiEnabled(context)) {
-                NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                @SuppressLint("MissingPermission") NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                 if ((niWF != null) && (niWF.isConnected())) {
                     Log.v(TAG, "TYPE_WIFI connected");
                     wakeUpService(context);
@@ -85,7 +86,7 @@ public class MmsSystemEventReceiver extends BroadcastReceiver {
                     //Utils.setMobileDataEnabled(context, true);
                     return;
                 }
-                NetworkInfo mmsNetworkInfo = mConnMgr
+                @SuppressLint("MissingPermission") NetworkInfo mmsNetworkInfo = mConnMgr
                         .getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
                 if (mmsNetworkInfo == null) {
                     return;

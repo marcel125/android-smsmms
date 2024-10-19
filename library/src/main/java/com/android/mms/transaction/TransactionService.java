@@ -16,6 +16,7 @@
 
 package com.android.mms.transaction;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
@@ -255,10 +256,10 @@ public class TransactionService extends Service implements Observer {
         if (mConnMgr == null) {
             return false;
         } else if (Utils.isMmsOverWifiEnabled(this)) {
-            NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            @SuppressLint("MissingPermission") NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             return (niWF == null ? false : niWF.isConnected());
         } else {
-            NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
+            @SuppressLint("MissingPermission") NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
             return (ni == null ? false : ni.isAvailable());
         }
     }
@@ -643,6 +644,7 @@ public class TransactionService extends Service implements Observer {
         }
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     private synchronized void createWakeLock() {
         // Create a new wake lock if we haven't made one yet.
         if (mWakeLock == null) {
@@ -675,7 +677,7 @@ public class TransactionService extends Service implements Observer {
         createWakeLock();
 
         if (Utils.isMmsOverWifiEnabled(this)) {
-            NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            @SuppressLint("MissingPermission") NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if ((niWF != null) && (niWF.isConnected())) {
                 Log.v(TAG, "beginMmsConnectivity: Wifi active");
                 return 0;
@@ -1097,6 +1099,7 @@ public class TransactionService extends Service implements Observer {
     }
 
     private class ConnectivityBroadcastReceiver extends BroadcastReceiver {
+        @SuppressLint("MissingPermission")
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();

@@ -134,8 +134,10 @@ public class RateController {
                     mBroadcastReceiver, new IntentFilter(RATE_LIMIT_CONFIRMED_ACTION), Context.RECEIVER_EXPORTED
             );
         } else {
-            mContext.registerReceiver(mBroadcastReceiver,
-                    new IntentFilter(RATE_LIMIT_CONFIRMED_ACTION));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mContext.registerReceiver(mBroadcastReceiver,
+                        new IntentFilter(RATE_LIMIT_CONFIRMED_ACTION), Context.RECEIVER_NOT_EXPORTED);
+            }
         }
 
         mAnswer = NO_ANSWER;

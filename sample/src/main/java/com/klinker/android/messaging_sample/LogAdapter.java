@@ -16,6 +16,7 @@
 
 package com.klinker.android.messaging_sample;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -60,7 +61,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mTextView.setText(mDataset.get(position));
         holder.position = position;
     }

@@ -16,6 +16,7 @@
 
 package com.android.mms.service_alt;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -71,6 +72,7 @@ public class MmsConfigManager {
     };
 
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     public void init(final Context context) {
         mContext = context;
 
@@ -150,7 +152,7 @@ public class MmsConfigManager {
      * file via the ResourceManager. With single-SIM devices, there will be a single subId.
      */
     private void load(Context context) {
-        List<SubscriptionInfo> subs = mSubscriptionManager.getActiveSubscriptionInfoList();
+        @SuppressLint("MissingPermission") List<SubscriptionInfo> subs = mSubscriptionManager.getActiveSubscriptionInfoList();
         if (subs == null || subs.size() < 1) {
             Log.e(TAG, "MmsConfigManager.load -- empty getActiveSubInfoList");
             return;

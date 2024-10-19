@@ -15,13 +15,42 @@ android {
         targetSdkVersion 34
     }
 
-    lintOptions {
-        abortOnError false
+//    lintOptions {
+//        abortOnError false
+//    }
+
+    compileOptions {
+        sourceCompatibility = 17
+        targetCompatibility = 17
     }
 
     namespace = "com.klinker.android.send_message"
 
     useLibrary 'org.apache.http.legacy'
+    buildToolsVersion '35.0.0'
+    ndkVersion '28.0.12433566 rc1'
 }
 
+
 group = 'com.github.marcel125'
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.marcel125'
+            artifactId = 'android-smsmms'
+            version = '1.0.8'
+
+            afterEvaluate {
+                from components.findByName('release')
+            }
+        }
+    }
+}
+
+//publishing {
+//    singleVariant("release") {
+//        withSourcesJar()
+//        withJavadocJar()
+//    }
+//}

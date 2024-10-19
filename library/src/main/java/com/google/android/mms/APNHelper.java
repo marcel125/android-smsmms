@@ -1,5 +1,6 @@
 package com.google.android.mms;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,11 +27,11 @@ public class APNHelper {
                 final List<APN> results = new ArrayList<APN>();
                 if (apnCursor.moveToFirst()) {
                     do {
-                        final String type = apnCursor.getString(apnCursor.getColumnIndex("type"));
+                        @SuppressLint("Range") final String type = apnCursor.getString(apnCursor.getColumnIndex("type"));
                         if (!TextUtils.isEmpty(type) && (type.equalsIgnoreCase("*") || type.equalsIgnoreCase("mms"))) {
-                            final String mmsc = apnCursor.getString(apnCursor.getColumnIndex("mmsc"));
-                            final String mmsProxy = apnCursor.getString(apnCursor.getColumnIndex("mmsproxy"));
-                            final String port = apnCursor.getString(apnCursor.getColumnIndex("mmsport"));
+                            @SuppressLint("Range") final String mmsc = apnCursor.getString(apnCursor.getColumnIndex("mmsc"));
+                            @SuppressLint("Range") final String mmsProxy = apnCursor.getString(apnCursor.getColumnIndex("mmsproxy"));
+                            @SuppressLint("Range") final String port = apnCursor.getString(apnCursor.getColumnIndex("mmsport"));
                             final APN apn = new APN();
                             apn.MMSCenterUrl = mmsc;
                             apn.MMSProxy = mmsProxy;

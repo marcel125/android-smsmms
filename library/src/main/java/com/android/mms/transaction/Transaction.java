@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -243,7 +244,7 @@ public abstract class Transaction extends Observable {
         if (Utils.isMmsOverWifiEnabled(context)) {
             ConnectivityManager mConnMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (mConnMgr != null) {
-                NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                @SuppressLint("MissingPermission") NetworkInfo niWF = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                 if ((niWF != null) && (niWF.isConnected())) {
                     return true;
                 }

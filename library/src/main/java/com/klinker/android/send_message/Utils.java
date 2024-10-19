@@ -1,5 +1,6 @@
 package com.klinker.android.send_message;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,6 +53,7 @@ public class Utils {
      * @param context is the context of the activity or service
      * @return a string of the phone number on the device
      */
+    @SuppressLint("MissingPermission")
     public static String getMyPhoneNumber(Context context) {
         TelephonyManager mTelephonyMgr;
         mTelephonyMgr = (TelephonyManager)
@@ -65,7 +67,7 @@ public class Utils {
         } else {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
                 SubscriptionManager subscriptionManager = SubscriptionManager.from(context);
-                SubscriptionInfo subscriptionInfo = subscriptionManager.getActiveSubscriptionInfo(subscriptionId);
+                @SuppressLint("MissingPermission") SubscriptionInfo subscriptionInfo = subscriptionManager.getActiveSubscriptionInfo(subscriptionId);
                 if (subscriptionInfo != null) {
                     return subscriptionInfo.getNumber();
                 }

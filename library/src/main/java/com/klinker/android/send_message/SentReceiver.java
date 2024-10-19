@@ -16,6 +16,7 @@
 
 package com.klinker.android.send_message;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -68,7 +69,7 @@ public abstract class SentReceiver extends StatusUpdatedReceiver {
 
                         // mark message failed
                         if (query != null && query.moveToFirst()) {
-                            String id = query.getString(query.getColumnIndex("_id"));
+                            @SuppressLint("Range") String id = query.getString(query.getColumnIndex("_id"));
                             ContentValues values = new ContentValues();
                             values.put("type", 5);
                             values.put("read", 1);
@@ -112,7 +113,7 @@ public abstract class SentReceiver extends StatusUpdatedReceiver {
 
         // mark message as sent successfully
         if (query != null && query.moveToFirst()) {
-            String id = query.getString(query.getColumnIndex("_id"));
+            @SuppressLint("Range") String id = query.getString(query.getColumnIndex("_id"));
             ContentValues values = new ContentValues();
             values.put("type", 2);
             values.put("read", 1);
