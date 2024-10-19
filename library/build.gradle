@@ -29,3 +29,17 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+// Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.marcel125'
+                artifactId = 'android-smsmms'
+                version = '1.0.8'
+            }
+        }
+    }
+}
