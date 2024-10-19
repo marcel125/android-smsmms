@@ -17,7 +17,6 @@
 package com.google.android.mms.pdu_alt;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -1121,10 +1120,7 @@ public class PduPersister {
             }
         }
         if (!recipients.isEmpty()) {
-            long threadId = 0;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                threadId = Threads.getOrCreateThreadId(mContext, recipients);
-            }
+            long threadId = Threads.getOrCreateThreadId(mContext, recipients);
             values.put(Mms.THREAD_ID, threadId);
         }
 
@@ -1419,9 +1415,7 @@ public class PduPersister {
             if (createThreadId && !recipients.isEmpty()) {
                 // Given all the recipients associated with this message, find (or create) the
                 // correct thread.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    threadId = Threads.getOrCreateThreadId(mContext, recipients);
-                }
+                threadId = Threads.getOrCreateThreadId(mContext, recipients);
             }
             values.put(Mms.THREAD_ID, threadId);
         }
@@ -1538,7 +1532,7 @@ public class PduPersister {
         if (excludeMyNumber && array.length == 1 && addressType == PduHeaders.TO) {
             return;
         }
-        @SuppressLint("MissingPermission") String myNumber = excludeMyNumber ? mTelephonyManager.getLine1Number() : null;
+        String myNumber = excludeMyNumber ? mTelephonyManager.getLine1Number() : null;
         for (EncodedStringValue v : array) {
             if (v != null) {
                 String number = v.getString();

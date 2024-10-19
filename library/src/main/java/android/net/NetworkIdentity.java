@@ -16,7 +16,6 @@
 
 package android.net;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -191,7 +190,6 @@ public class NetworkIdentity {
      * Build a {@link NetworkIdentity} from the given {@link NetworkState},
      * assuming that any mobile networks are using the current IMSI.
      */
-    @SuppressLint("MissingPermission")
     public static NetworkIdentity buildNetworkIdentity(Context context, NetworkState state) {
         final int type = state.networkInfo.getType();
         final int subType = state.networkInfo.getSubtype();

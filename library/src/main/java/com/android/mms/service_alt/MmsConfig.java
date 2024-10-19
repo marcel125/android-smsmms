@@ -16,7 +16,6 @@
 
 package com.android.mms.service_alt;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.os.Build;
@@ -555,7 +554,6 @@ public class MmsConfig {
         /**
          * @return the phone number
          */
-        @SuppressLint("MissingPermission")
         private static String getLine1(Context context, int subId) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(
                     Context.TELEPHONY_SERVICE);

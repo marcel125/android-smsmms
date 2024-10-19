@@ -16,7 +16,6 @@
 
 package com.android.mms.transaction;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -65,7 +64,7 @@ public class RetryScheduler implements Observer {
     private boolean isConnected() {
         ConnectivityManager mConnMgr = (ConnectivityManager)
                 mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        @SuppressLint("MissingPermission") NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
+        NetworkInfo ni = mConnMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_MMS);
         return (ni == null ? false : ni.isConnected());
     }
 
@@ -246,7 +245,7 @@ public class RetryScheduler implements Observer {
 
         try {
             query.moveToFirst();
-            @SuppressLint("Range") String id = query.getString(query.getColumnIndex(Mms._ID));
+            String id = query.getString(query.getColumnIndex(Mms._ID));
             query.close();
 
             // mark message as failed
@@ -320,7 +319,7 @@ public class RetryScheduler implements Observer {
                     Intent service = new Intent(TransactionService.ACTION_ONALARM,
                                         null, context, TransactionService.class);
                     PendingIntent operation = PendingIntent.getService(
-                            context, 0, service, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+                            context, 0, service, PendingIntent.FLAG_ONE_SHOT);
                     AlarmManager am = (AlarmManager) context.getSystemService(
                             Context.ALARM_SERVICE);
                     am.set(AlarmManager.RTC, retryAt, operation);

@@ -35,7 +35,6 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.telephony.TelephonyManager;
@@ -174,7 +173,7 @@ public class HttpUtils {
             String extraHttpParams = MmsConfig.getHttpParams();
 
             if (extraHttpParams != null) {
-                @SuppressLint("MissingPermission") String line1Number = ((TelephonyManager)context
+                String line1Number = ((TelephonyManager)context
                         .getSystemService(Context.TELEPHONY_SERVICE))
                         .getLine1Number();
                 String line1Key = MmsConfig.getHttpParamsLine1Key();

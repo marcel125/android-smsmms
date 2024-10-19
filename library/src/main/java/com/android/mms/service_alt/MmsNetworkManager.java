@@ -16,7 +16,6 @@
 
 package com.android.mms.service_alt;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -319,7 +318,7 @@ public class MmsNetworkManager implements com.squareup.okhttp.internal.Network {
         }
         String apnName = null;
         final ConnectivityManager connectivityManager = getConnectivityManager();
-        @SuppressLint("MissingPermission") NetworkInfo mmsNetworkInfo = connectivityManager.getNetworkInfo(network);
+        NetworkInfo mmsNetworkInfo = connectivityManager.getNetworkInfo(network);
         if (mmsNetworkInfo != null) {
             apnName = mmsNetworkInfo.getExtraInfo();
         }
