@@ -34,8 +34,8 @@ android {
     namespace = "com.klinker.android.messaging_sample"
 
     compileOptions {
-        sourceCompatibility = 11
-        targetCompatibility = 11
+        sourceCompatibility = 17
+        targetCompatibility = 17
     }
 }
 
