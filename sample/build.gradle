@@ -30,6 +30,8 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    namespace = "com.klinker.android.messaging_sample"
 }
 
 dependencies {
