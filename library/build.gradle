@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 dependencies {
     implementation 'com.klinkerapps:logger:1.0.3'
@@ -22,3 +23,5 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 }
+
+group = 'com.github.marcel125'
