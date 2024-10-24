@@ -24,17 +24,17 @@ public class ApnUtils {
 
     private static final String TAG = "ApnUtils";
 
-    public static void initDefaultApns(final Context context, final OnApnFinishedListener listener) {
+    public static void initDefaultApns(final Context context, final boolean shouldSelectFirst, final OnApnFinishedListener listener) {
         loadMmsSettings(context);
         final ArrayList<APN> apns = loadApns(context);
 
-        if (apns == null || apns.size() == 0) {
+        if (apns == null || apns.isEmpty()) {
             Log.v(TAG, "Found no APNs :( Damn CDMA network probably.");
             Toast.makeText(context, context.getString(R.string.auto_select_failed), Toast.LENGTH_SHORT).show();
             if (listener != null) {
                 listener.onFinished();
             }
-        } else if (apns.size() == 1) {
+        } else if (apns.size() == 1 || shouldSelectFirst) {
             setApns(context, apns.get(0));
             if (listener != null) {
                 listener.onFinished();

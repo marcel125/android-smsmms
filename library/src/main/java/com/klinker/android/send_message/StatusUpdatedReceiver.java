@@ -13,7 +13,7 @@ public abstract class StatusUpdatedReceiver extends BroadcastReceiver {
     public abstract void onMessageStatusUpdated(Context context, Intent intent, int receiverResultCode);
 
     @Override
-    public final void onReceive(final Context context, final Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         final int resultCode = getResultCode();
         new Thread(new Runnable() {
             @Override
