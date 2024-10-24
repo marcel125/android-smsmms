@@ -169,12 +169,12 @@ public class Transaction {
                 for (String address : message.getAddresses()) {
                     sendMmsMessage(message.getText(), message.getFromAddress(), new String[]{address},
                             message.getImages(), message.getImageNames(), message.getParts(), message.getSubject(),
-                            message.getSave(), message.getMessageUri());
+                            message.getSave(), message.getMessageUri(), sentMessageParcelable, deliveredParcelable);
                 }
             } else {
                 sendMmsMessage(message.getText(), message.getFromAddress(), message.getAddresses(),
                         message.getImages(), message.getImageNames(), message.getParts(), message.getSubject(),
-                        message.getSave(), message.getMessageUri());
+                        message.getSave(), message.getMessageUri(), sentMessageParcelable, deliveredParcelable);
             }
         } else {
             String[] addresses = message.getAddresses();
@@ -410,7 +410,12 @@ public class Transaction {
         }
     }
 
-    private void sendMmsMessage(String text, String fromAddress, String[] addresses, Bitmap[] image, String[] imageNames, List<Message.Part> parts, String subject, boolean save, Uri messageUri) throws Exception {
+    private void sendMmsMessage(String text, String fromAddress, String[] addresses,
+                                Bitmap[] image, String[] imageNames, List<Message.Part> parts,
+                                String subject, boolean save, Uri messageUri,
+                                final Parcelable sentMessageParcelable,
+                                final Parcelable deliveredParcelable
+    ) throws Exception {
         // merge the string[] of addresses into a single string so they can be inserted into the database easier
         String address = "";
 
@@ -463,7 +468,7 @@ public class Transaction {
         Log.v(TAG, "using lollipop method for sending sms");
         if (settings.getUseSystemSending()) {
             Log.v(TAG, "using system method for sending");
-            sendMmsThroughSystem(context, subject, data, fromAddress, addresses, explicitSentMmsReceiver, save, messageUri);
+            sendMmsThroughSystem(context, subject, data, fromAddress, addresses, explicitSentMmsReceiver, save, messageUri, sentMessageParcelable, deliveredParcelable);
         } else {
             try {
                 MessageInfo info = getBytes(context, saveMessage, fromAddress, address.split(getAddressSeparatorRegex()),
@@ -605,7 +610,13 @@ public class Transaction {
     public static final long DEFAULT_EXPIRY_TIME = 7 * 24 * 60 * 60;
     public static final int DEFAULT_PRIORITY = PduHeaders.PRIORITY_NORMAL;
 
-    private static void sendMmsThroughSystem(Context context, String subject, List<MMSPart> parts, String fromAddress, String[] addresses, Intent explicitSentMmsReceiver, boolean save, Uri existingMessageUri) throws Exception {
+    private static void sendMmsThroughSystem(
+            Context context, String subject, List<MMSPart> parts, String fromAddress,
+            String[] addresses, Intent explicitSentMmsReceiver, boolean save,
+            Uri existingMessageUri,
+            final Parcelable sentMessageParcelable,
+            final Parcelable deliveredParcelable
+    ) throws Exception {
         try {
             final String fileName = "send." + Math.abs(new Random().nextLong()) + ".dat";
             File mSendFile = new File(context.getCacheDir(), fileName);
@@ -639,6 +650,7 @@ public class Transaction {
 
             intent.putExtra(MmsSentReceiver.EXTRA_CONTENT_URI, messageUri.toString());
             intent.putExtra(MmsSentReceiver.EXTRA_FILE_PATH, mSendFile.getPath());
+            intent.putExtra(SENT_SMS_BUNDLE, sentMessageParcelable);
             int flags = PendingIntent.FLAG_CANCEL_CURRENT;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 flags = flags | PendingIntent.FLAG_IMMUTABLE;

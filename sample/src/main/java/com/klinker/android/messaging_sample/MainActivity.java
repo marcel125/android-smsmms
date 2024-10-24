@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
     }
 
     private void initApns() {
-        ApnUtils.initDefaultApns(this, new ApnUtils.OnApnFinishedListener() {
+        ApnUtils.initDefaultApns(this, false, new ApnUtils.OnApnFinishedListener() {
             @Override
             public void onFinished() {
                 settings = Settings.get(MainActivity.this, true);
